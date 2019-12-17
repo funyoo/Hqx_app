@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>用户资料</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="files/main/styles.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="resources/scripts/jquery-3.4.1.min.js"></script>
+</head>
+<style>*,body,html,div,p,img{border:0;margin:0;padding:0;} </style>
+<body>
+
+<!-- Unnamed (矩形) -->
+<div style="position: fixed; z-index: 1;top:0; bottom: auto; width: 100%; background: white;" class="footer">
+    <div>
+        <div id="u36_div" class=""></div>
+    </div>
+
+    <div style="position: absolute; text-align: center; top: 10px; width: 60%; left: 20%;">
+        <span style="font-weight: 700; font-size: 20px; color: white">个人信息</span>
+    </div>
+
+    <div class="ax_default _图片">
+        <img onclick="window.android.edit()" id="u46_img" class="img " src="images/首页/edit.png"/>
+    </div>
+
+    <div>
+        <img onclick="back()" id="u48_img" class="img " src="images/首页/goleft.png"/>
+    </div>
+</div>
+
+<div style="margin-top: 60px; font-size: 20px;">
+    <div style="position:relative">
+        <span style="position:absolute; left:7%; top:40%; font-weight: 700">头像</span>
+        <img id="head" style="width: 15%; margin-left: 78%; border-radius: 50%;" src="images/首页/head.png"/>
+    </div>
+
+    <img style="width: 100%" src="images/首页/u58.png"/>
+
+    <div style="margin-bottom: -20px;">
+        <div style="margin-left: 7%; font-weight: 700; display:inline-block; float: left;">昵称</div>
+        <div id="nick" style="margin-right: 8%; text-align: right; font-size: 18px;display:inline-block; float: right;"></div>
+    </div>
+
+    <img style="width: 100%;" src="images/首页/u58.png"/>
+
+    <div style="margin-bottom: -20px;">
+        <div style="margin-left: 7%; font-weight: 700; display:inline-block; float: left;">个性签名</div>
+        <div id="showing" style="margin-right: 8%; text-align: right; font-size: 18px;display:inline-block; float: right;"></div>
+    </div>
+
+    <img style="width: 100%;" src="images/首页/u58.png"/>
+
+    <div style="margin-bottom: -20px;">
+        <div style="margin-left: 7%; font-weight: 700; display:inline-block; float: left;">姓名</div>
+        <div id="name" style="margin-right: 8%; text-align: right; font-size: 18px;display:inline-block; float: right;"></div>
+    </div>
+
+    <img style="width: 100%;" src="images/首页/u58.png"/>
+
+    <div style="margin-bottom: -20px;">
+        <div style="margin-left: 7%; font-weight: 700; display:inline-block; float: left;">班级</div>
+        <div id="classStr" style="margin-right: 8%; text-align: right; font-size: 18px;display:inline-block; float: right;"></div>
+    </div>
+
+    <img style="width: 100%;" src="images/首页/u58.png"/>
+
+    <div style="margin-bottom: -20px;">
+        <div style="margin-left: 7%; font-weight: 700; display:inline-block; float: left;">学号</div>
+        <div id="schoolId" style="margin-right: 8%; text-align: right; font-size: 18px;display:inline-block; float: right;"></div>
+    </div>
+
+    <img style="width: 100%;" src="images/首页/u58.png"/>
+
+    <div style="margin-bottom: -20px;">
+        <div style="margin-left: 7%; font-weight: 700; display:inline-block; float: left;">电话</div>
+        <div id="tel" style="margin-right: 8%; text-align: right; font-size: 18px;display:inline-block; float: right;"></div>
+    </div>
+
+    <img style="width: 100%;" src="images/首页/u58.png"/>
+
+    <div style="margin-bottom: -20px;">
+        <div style="margin-left: 7%; font-weight: 700; display:inline-block; float: left;">邮箱</div>
+        <div id="mail" style="margin-right: 8%; text-align: right; font-size: 18px;display:inline-block; float: right;"></div>
+    </div>
+
+    <img style="width: 100%;" src="images/首页/u58.png"/>
+</div>
+</body>
+<script>
+    function getUser(){
+        var user = window.android.getUser();
+        user = eval('(' + user + ')');
+        document.getElementById("nick").innerHTML = user.nick;
+        document.getElementById("showing").innerHTML = user.showing;
+        document.getElementById("classStr").innerHTML = user.classStr;
+        document.getElementById("name").innerHTML = user.name;
+        document.getElementById("schoolId").innerHTML = user.schoolId;
+        document.getElementById("tel").innerHTML = user.tel;
+        document.getElementById("mail").innerHTML = user.mail;
+    };
+    getUser();
+
+    function back() {
+        window.android.back();
+    }
+</script>
+</html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.funyoo.hqxapp.Activity">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/hqx"
+        android:label="红旗下"
+        android:roundIcon="@mipmap/hqx"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 设置无标题栏样式 -->
+        <activity android:name="com.funyoo.hqxapp.Activity.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.funyoo.hqxapp.Activity.MainActivity"></activity>
+        <activity android:name="com.funyoo.hqxapp.Activity.ArticleActivity"></activity>
+        <activity android:name="com.funyoo.hqxapp.Activity.LoginActivity"></activity>
+        <activity android:name="com.funyoo.hqxapp.Activity.RegisterActivity"></activity>
+        <activity android:name="com.funyoo.hqxapp.Activity.MeActivity"></activity>
+        <activity android:name="com.funyoo.hqxapp.Activity.UserInfoActivity"></activity>
+        <activity android:name="com.funyoo.hqxapp.Activity.UserEditActivity"></activity>
+        <activity android:name=".SchoolDetailActivity"></activity>
+        <activity android:name=".SchoolListActivity"></activity>
+        <activity android:name=".SetActivity"></activity>
+        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".CollectionActivity"></activity>
+        <!--<activity android:name=".Activity.LoginOrRegisterActivity" />-->
+        <!--<activity android:name=".Activity.MainActivity" />-->
+        <!--<activity android:name=".Activity.LoginActivity" />-->
+        <!--<activity android:name=".Activity.RegisterActivity" />-->
+        <!--<activity android:name=".Activity.EditMineActivity" />-->
+        <!--<activity android:name=".Activity.CoverActivity" />-->
+        <!--<activity android:name=".Activity.ShowNewsActivity" />-->
+        <!--<activity android:name=".Activity.CollectionActivity">-->
+
+        <!--</activity>-->
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.funyoo.hqxapp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+
+</manifest>

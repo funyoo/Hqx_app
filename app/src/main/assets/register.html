@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>注册页</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
+  <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
+  <link href="data/styles.css" type="text/css" rel="stylesheet"/>
+  <link href="files/register/styles.css" type="text/css" rel="stylesheet"/>
+  <script type="text/javascript" src="resources\scripts\jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="layer/layer.js"></script>
+  <script type="text/javascript" src="resources/scripts/md5.min.js"></script>
+  <script type="text/javascript" src="resources/scripts/common.js"></script>
+</head>
+<style>*,body,html,div,p,img{border:0;margin:0;padding:0;}
+    input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
+      color:#E1E4E7;
+      font-size:20px;
+    }
+  </style>
+<body>
+<!-- Unnamed (图片) -->
+<div style="z-index:-100;position: relative;">
+  <img style="position:fixed; height: 100%; width:100%;" src="images/register/u8.png" align="center"/>
+</div>
+
+<!-- Unnamed (矩形) -->
+<!-- <div>
+  <div id="u11" class="text" style="visibility: visible;">
+    <p><span>邮箱号码</span></p>
+  </div>
+</div> -->
+
+<!-- Unnamed (矩形) -->
+<!-- <div class="ax_default label">
+  <div id="u13" class="text" style="visibility: visible;">
+    <p><span>+86</span></p>
+  </div>
+</div> -->
+
+<!-- Unnamed (矩形) -->
+<!-- <div id="u14" class="ax_default label">
+  <div id="u14_div" class=""></div>
+  <div id="u15" class="text" style="visibility: visible;">
+    <p><span>×</span></p>
+  </div>
+</div>
+-->
+<!-- Unnamed (矩形) -->
+<!-- <div id="u16" class="ax_default label">
+  <div id="u16_div" class=""></div>
+  <div id="u17" class="text" style="visibility: visible;">
+    <p><span>密码</span></p><p><span><br></span></p>
+  </div>
+</div> -->
+<div style="color: #E1E4E7; font-size: 30px; padding-top: 80%; margin-left: 25%; width: 75%;">
+  <div>
+    <input id="mail" style="color: white; font-size: 22px; background-color: transparent; border:none; border-bottom: white 1px solid; outline:none; width: 100%;"  placeholder="邮箱号码">
+  </div>
+  <div style="margin-top: 15px;">
+    <input id="captcha" style="color: white; font-size: 22px; background-color: transparent; border:none; border-bottom: white 1px solid; outline:none; width: 100%;"  placeholder="验证码">
+    <input id="get_captcha" type="button" value="获取验证码" style="position: relative; top: -40px; margin-left: 90px; font-size: 18px; border-radius: 6px; width: 140px; color: black">
+  </div>
+  <!-- <div>
+    <input style="border:1px solid #000000;width:150px;height:20px;padding-left:20px;">
+    <img src="http://www.infoq.com/images/btn-search.gif" style="position:relative;left:-160px;top:4px;">
+  </div> -->
+
+  <div>
+    <input id="mi1" type="password" style="color: white; font-size: 22px; background-color: transparent; border:none; border-bottom: white 1px solid; outline:none; width: 100%;"  placeholder="设置密码">
+  </div>
+  <div>
+    <input id="mi2" type="password" style="color: white; font-size: 22px; background-color: transparent; border:none; border-bottom: white 1px solid; outline:none; width: 100%;"  placeholder="重复密码">
+  </div>
+  <div style="margin-top: 40px;">
+    <input id="register" style="text-align: center; font-size: 18px; height: 34px; border-radius: 6px; margin-top: 10px; width: 100%;" type="button" value="注册">
+  </div>
+</div>
+
+</body>
+
+<script>
+
+    var flag = 1;
+    var i = 60;
+
+    document.getElementById("register").disabled  = "disabled";
+
+    function countDown() {
+      document.getElementById("get_captcha").value = i + "秒后重新发送";
+      i = i - 1;
+      if (i == 0) {
+        document.getElementById("get_captcha").value = "重新发送";
+        flag = 1;
+        i = 60;
+        return;
+      }
+      setTimeout('countDown()',1000);
+    }
+
+    document.getElementById("get_captcha").onclick = function() {
+      if (flag == 1) {
+        var mailstr = document.getElementById("mail").value;
+        flag = 0;
+        countDown();
+        $.ajax({
+              url:_url_() + "/hqx_register/get_captcha",
+              type:"POST",
+              data:{
+                mail: mailstr
+              },
+              success:function(result) {
+                if (result.code == 0) {
+                  $("#register").removeAttr("disabled");
+                  window.android.showMessage("验证码已送达");
+                } else {
+                  window.android.showMessage(result.msg);
+                }
+              }
+        });
+      }
+    }
+
+    document.getElementById("register").onclick = function() {
+      // 检查密码
+      if (document.getElementById("mi1").value == document.getElementById("mi2").value) {
+        layer.msg('&nbsp;&nbsp;正在注册', {
+          icon: 16,
+          shade: 0.3,
+          time: 100000
+        });
+        document.getElementById("register").disabled  = "disabled";
+
+        var inputPass = $("#mi1").val();
+        var salt = "97funyoo23";
+        var str = "" + salt.charAt(5) + salt.charAt(0) + inputPass + salt.charAt(4) + salt.charAt(7);
+        var password = md5(str);
+
+        $.ajax({
+              url:_url_() + "/hqx_register/do_register",
+              type:"POST",
+              data:{
+                mail: document.getElementById("mail").value,
+                captcha: document.getElementById("captcha").value,
+                password: password
+              },
+              success:function(result) {
+                layer.closeAll();
+                if (result.code == 0) {
+                  window.android.showMessage("注册成功");
+                  window.android.register();
+                } else {
+                  $("#register").removeAttr("disabled");
+                  window.android.showMessage(result.msg);
+                }
+              },
+              error:function() {
+                layer.closeAll();
+                window.android.showMessage("请检查网络");
+              }
+        });
+      } else {
+        window.android.showMessage("密码不一致，请重新设置");
+        document.getElementById("mi1").value = "";
+        document.getElementById("mi1").value = "";
+      }
+    }
+
+  </script>
+</html>

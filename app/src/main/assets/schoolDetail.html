@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>活动详情</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="files/main/styles.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <script type="text/javascript" src="resources/scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="resources/scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="resources/scripts/common.js"></script>
+</head>
+<style>*,body,html,div,p,img{border:0;margin:0;padding:0;} </style>
+<body>
+
+<!-- Unnamed (矩形) -->
+    <div style="position: fixed; z-index: 1;top:0; bottom: auto; width: 100%; background: white;" class="footer">
+        <div>
+            <div id="u36_div" class=""></div>
+        </div>
+
+        <div style="position: absolute; text-align: center; top: 10px; width: 60%; left: 20%;">
+            <span style="font-weight: 700; font-size: 20px; color: white">活动详情</span>
+        </div>
+        
+        <div>
+            <img id="u48_img" class="img " src="images/首页/goleft.png" onclick="window.android.toReturn()"/>
+        </div>
+    </div>
+
+    <!--<div onclick="window.android.toArticle('character')">-->
+    <div style="margin-top: 45px;">
+<!--            <img style="width:100%; border-radius: 6px;" src="images/首页/schoolTest.jpg"/>-->
+            <div id="myCarousel" class="carousel slide">
+                <!-- 轮播（Carousel）指标 -->
+                <ol class="carousel-indicators" id="ol">
+<!--                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
+<!--                    <li data-target="#myCarousel" data-slide-to="1"></li>-->
+<!--                    <li data-target="#myCarousel" data-slide-to="2"></li>-->
+                </ol>
+                <!-- 轮播（Carousel）项目 -->
+                <div class="carousel-inner" id="car">
+<!--                    <div class="item active">-->
+<!--                        <img style="width:100%; border-radius: 6px;" src="images/首页/schoolTest.jpg">-->
+<!--                    </div>-->
+<!--                    <div class="item">-->
+<!--                        <img style="width:100%; border-radius: 6px;" src="images/首页/schoolTest.jpg">-->
+<!--                    </div>-->
+<!--                    <div class="item">-->
+<!--                        <img style="width:100%; border-radius: 6px;" src="images/首页/schoolTest.jpg">-->
+<!--                    </div>-->
+                </div>
+                <!-- 轮播（Carousel）导航 -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        <div style="font-size:18px;">
+        <div style="margin-top: 10px;">
+            <p id="title" style="font-weight:700; text-align:center; ">活动标题</p>
+        </div>
+        <div style="margin-top: 15px; margin-left:10px; margin-right:10px;">
+            <p><span style="font-weight:700;">发起人: </span><span id="initiator" style="color:blue;">校团委</span></p>
+        </div>
+        <div style="margin-top: 15px; margin-left:10px; margin-right:10px;">
+            <p style="font-weight:700;">活动详情:</p>
+            <p id="detail" style="overflow-wrap: break-word;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+        </div>
+        <div style="margin-top: 15px; margin-left:10px; margin-right:10px;">
+            <p style="font-weight:700;">活动时间及地点:</p>
+            <p id="where" style="overflow-wrap: break-word;">xxxxxxxxxxxxx</p>
+        </div>
+        </div>
+
+        <input id="button" onclick = "go()" style="text-align: center; font-size: 20px; height: 40px; width: 100%; background-color: red; color: white; font-weight: 700; width: 50%; margin-left: 25%; border-radius: 6px; margin-top: 30px; margin-bottom: 10px;" type="button" value="参加活动">
+    </div>
+</body>
+<script>
+    var id = window.android.getId();
+    var title = window.android.getTitle();
+    var initiator = window.android.getInitiator();
+    var detail = window.android.getDetail();
+    var when = window.android.getWhen();
+    var where = window.android.getWhere();
+    var pic1 = window.android.getPic1();
+    var pic2 = window.android.getPic2();
+    var pic3 = window.android.getPic3();
+
+    load();
+    already();
+
+    // 打开页面时获取活动信息
+    function load() {
+        document.getElementById("title").innerHTML = title;
+        document.getElementById("initiator").innerHTML = initiator;
+        document.getElementById("detail").innerHTML = detail;
+        document.getElementById("where").innerHTML = when + "&nbsp; " + where;
+        if (pic1 != 'null') {
+            document.getElementById("ol").innerHTML = '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>'
+            document.getElementById("car").innerHTML =
+                '<div class="item active">' +
+                    '<img style="width:100%; border-radius: 6px;" src="' + pic1 + '">'+
+                '</div>';
+        }
+        if (pic2 != 'null') {
+            var picol = document.getElementById("ol").innerHTML;
+            var piccar = document.getElementById("car").innerHTML;
+            document.getElementById("ol").innerHTML = picol + '<li data-target="#myCarousel" data-slide-to="1"></li>'
+            document.getElementById("car").innerHTML = piccar +
+                '<div class="item">' +
+                    '<img style="width:100%; border-radius: 6px;" src="' + pic2 + '">'+
+                '</div>';
+        }
+        if (pic3 != 'null') {
+            var picol = document.getElementById("ol").innerHTML;
+            var piccar = document.getElementById("car").innerHTML;
+            document.getElementById("ol").innerHTML = picol + '<li data-target="#myCarousel" data-slide-to="2"></li>'
+            document.getElementById("car").innerHTML = piccar +
+                '<div class="item">' +
+                    '<img style="width:100%; border-radius: 6px;" src="' + pic3 + '">'+
+                '</div>';
+        }
+    }
+
+
+
+
+    var button = document.getElementById("button");
+
+    // 进入页面 1.判断用户是否已经参加该活动 若已参加 则按钮变灰 颜色变白
+    function already() {
+        $.ajax({
+            url:_url_() + "/SchoolActivity/isJoin",
+            type:"POST",
+            data:{
+              id: id,
+              stuId: window.android.getStuId()
+            },
+            success:function(result) {
+              if (result.code == 0) {
+                    // 已参加 按钮可点 变化样式
+                    if (result.data == true) {
+                        button.style.background="gray";
+                        button.value = "取消参加";
+                    }
+              } else {
+                    window.android.showMessage(result.msg);
+              }
+            }
+        });
+    }
+
+    function go() {
+        if (button.value == "参加活动") {
+            // 判断用户信息是否完善
+            var done = window.android.isUserDone();
+            if (done == 1) {
+                window.android.go();
+            } else {
+                //提示框，请完善用户信息
+                window.android.dialog();
+            }
+        } else {
+            window.android.cancel();
+        }
+
+        // TDOD
+    }
+
+    function sure() {
+        // 参加活动 按钮不可点 发送请求 (可考虑加上传个人身份信息的模态框)
+        document.getElementById("button").disabled  = "disabled";
+        $.ajax({
+            url:_url_() + "/SchoolActivity/join",
+            type:"POST",
+            data:{
+              id: id,
+              stuId: window.android.getStuId()
+            },
+            success:function(result) {
+              if (result.code == 0) {
+                    // 成功参加 按钮可点 变化样式
+                    button.style.background="gray";
+                    button.value = "取消参加";
+                    $("#button").removeAttr("disabled");
+              } else {
+                    window.android.showMessage(result.msg);
+                    $("#button").removeAttr("disabled");
+              }
+            }
+        });
+    }
+
+    function sureCancel() {
+        // 取消参加 按钮不可点 发送请求
+        document.getElementById("button").disabled  = "disabled";
+        $.ajax({
+            url: _url_() + "/SchoolActivity/cancel",
+            type:"POST",
+            data:{
+              id: id,
+              stuId: window.android.getStuId()
+            },
+            success:function(result) {
+              if (result.code == 0) {
+                    // 成功取消 按钮可点 变化样式
+                    button.style.background="red";
+                    button.value = "参加活动";
+                    $("#button").removeAttr("disabled");
+              } else {
+                    window.android.showMessage(result.msg);
+                    $("#button").removeAttr("disabled");
+              }
+            }
+        });
+    }
+
+
+
+</script>
+</html>

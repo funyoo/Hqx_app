@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <!--android:background="@drawable/welcome"-->
+    <!--android:orientation="vertical"-->
+    <!--
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.funyoo.hqxapp.Activity.WelcomeActivity"-->
+
+
+    <!--<Button-->
+        <!--android:id="@+id/btn_jump"-->
+        <!--android:layout_width="65dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:textSize="10sp"-->
+        <!--android:text="点击跳过"/>-->
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+</LinearLayout>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>用户资料</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="files/main/styles.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="resources/scripts/jquery-3.4.1.min.js"></script>
+    <script  type="text/javascript" src="layer/layer.js"></script>
+    <script type="text/javascript" src="resources/scripts/common.js"></script>
+</head>
+<style>*,body,html,div,p,img{border:0;margin:0;padding:0;} </style>
+<body>
+
+<!-- Unnamed (矩形) -->
+    <div style="position: fixed; z-index: 1;top:0; bottom: auto; width: 100%; background: white;" class="footer">
+        <div>
+            <div id="u36_div" class=""></div>
+        </div>
+
+        <div style="position: absolute; text-align: center; top: 10px; width: 60%; left: 20%;">
+            <span style="font-weight: 700; font-size: 20px; color: white">信息修改</span>
+        </div>
+        
+        <div>
+            <img onclick="back()" id="u48_img" class="img " src="images/首页/goleft.png"/>
+        </div>
+    </div>
+
+    <!--<div onclick="window.android.toArticle('character')">-->
+    <div style="margin-top: 60px; font-size: 20px;">
+        <div style="position:relative">
+            <span style="position:absolute; left:5%; top:40%;">头像</span>
+            <img id="head" style="width: 15%; margin-left: 75%; border-radius: 50%;" src="images/首页/head.png"/>
+            <!-- <img style="width: 3%; margin-bottom: 20px; margin-left: 10px;" src="images/首页/goright.png"> -->
+        </div>
+
+        <div style="position:relative">
+            <img style="width: 100%" src="images/首页/u58.png"/>
+            <span style="position:absolute; margin-left: 5%">昵称</span>
+            <input id="nick" style="text-align: right; margin-left: 30%; height: 30px; width: 60%; font-size: 20px;"/>
+        </div>
+
+        <div style="position:relative">
+            <img style="width: 100%" src="images/首页/u58.png"/>
+            <span style="position:absolute; margin-left: 5%">个性签名</span>
+            <input id="showing" style="text-align: right; margin-left: 30%; height: 30px; width: 60%; font-size: 20px;"/>
+        </div>
+
+        <div style="position:relative">
+            <img style="width: 100%" src="images/首页/u58.png"/>
+            <span style="position:absolute; margin-left: 5%">姓名</span>
+            <input id="name" style="text-align: right; margin-left: 30%; height: 30px; width: 60%; font-size: 20px;"/>
+        </div>
+
+        <div style="position:relative">
+            <img style="width: 100%" src="images/首页/u58.png"/>
+            <span style="position:absolute; margin-left: 5%">班级</span>
+            <input id="classStr" style="text-align: right; margin-left: 30%; height: 30px; width: 60%; font-size: 20px;"/>
+        </div>
+
+        <div style="position:relative">
+            <img style="width: 100%" src="images/首页/u58.png"/>
+            <span style="position:absolute; margin-left: 5%">学号</span>
+            <input id="schoolId" style="text-align: right; margin-left: 30%; height: 30px; width: 60%; font-size: 20px;"/>
+        </div>
+
+        <div style="position:relative">
+            <img style="width: 100%" src="images/首页/u58.png"/>
+            <span style="position:absolute; margin-left: 5%">电话</span>
+            <input id="tel" style="text-align: right; margin-left: 30%; height: 30px; width: 60%; font-size: 20px;"/>
+            <img style="width: 100%" src="images/首页/u58.png"/>
+        </div>
+
+        <input id="go" style="text-align: center; font-size: 20px; height: 40px; width: 100%; background-color: red; color: white; font-weight: 700; width: 50%; margin-left: 25%; border-radius: 6px;" type="button" value="提交">
+    </div>
+</body>
+<script>
+    function getUser(){
+        var user = window.android.getUser();
+        user = eval('(' + user + ')');
+        document.getElementById("nick").value = user.nick;
+        document.getElementById("showing").value = user.showing;
+        document.getElementById("classStr").value = user.classStr;
+        document.getElementById("name").value = user.name;
+        document.getElementById("schoolId").value = user.schoolId;
+        document.getElementById("tel").value = user.tel;
+    };
+    getUser();
+
+    document.getElementById("go").onclick = function() {
+        layer.msg('&nbsp;&nbsp;正在提交用户最新信息', {
+          icon: 16,
+          shade: 0.3,
+          time: 100000
+        });
+
+        var user = window.android.getUser();
+        user = eval('(' + user + ')');
+        user.nick = document.getElementById("nick").value;
+        user.showing = document.getElementById("showing").value;
+        user.classStr = document.getElementById("classStr").value;
+        user.name = document.getElementById("name").value;
+        user.schoolId = $.trim(document.getElementById("schoolId").value);
+        user.tel = document.getElementById("tel").value;
+
+        var userStr = JSON.stringify(user);
+
+        $.ajax({
+              url:_url_() + "/userMsg/update",
+              type:"POST",
+              data:{
+                userMsgJson:userStr
+              },
+              success:function(result) {
+                // 回馈客户端信息
+                layer.closeAll();
+                if (result.code == 0) {
+                    window.android.setUser(userStr);
+                } else {
+                    // 更新失败 TODO
+                }
+              },
+              error:function(result) {
+                layer.closeAll();
+              }
+        });
+    }
+
+    function back() {
+        window.android.back();
+    }
+</script>
+</html>
