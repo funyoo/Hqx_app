@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<link rel="stylesheet" href="resources/css/mescroll.min.css">
+		<script type="text/javascript" src="resources/scripts/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="resources/scripts/bootstrap.min.js"></script>
+		<script type="text/javascript" src="resources/scripts/mescroll.min.js"></script>
+		<script type="text/javascript" src="resources/scripts/common.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				-webkit-touch-callout:none;
+				-webkit-user-select:none;
+				-webkit-tap-highlight-color:transparent;
+			}
+			body{background-color: white}
+			ul{list-style-type: none}
+			a {text-decoration: none;color: #18B4FE;}
+			.imgtop {width: 100%;}
+
+			.header{
+				z-index: 9990;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				line-height: 16px;
+				padding-top: 0px;
+				text-align: center;
+				background-color: white;
+			}
+			.header .btn-left{
+				position: absolute;
+				top: 11px;
+				left: 0;
+				padding:0px 11px;
+			}
+			.header .btn-right{
+				position: absolute;
+				top: 14px;
+				right: 0;
+				padding:0px 10px;
+			}
+			.header .tip{
+				margin-top: 4px;
+				font-size: 12px;
+				color: gray;
+			}
+			/*菜单*/
+			.header .nav{
+				margin-top: 8px;
+				border-bottom: 1px solid #ddd;
+			}
+			.header .nav p{
+				display: inline-block;
+				width: 17%;
+				padding: 5px 0;
+			}
+			.header .nav .active{
+				border-bottom: 2px solid #FF6990;
+				color: #FF6990;
+			}
+			/*列表*/
+			.mescroll{
+				position: fixed;
+				top: 84px;
+				bottom: 0;
+				height: auto;
+			}
+			/*展示上拉加载的数据列表*/
+			.data-list li{
+				position: relative;
+				padding: 10px 8px 10px 10px;
+				border-bottom: 1px solid #eee;
+			}
+			.data-list .pd-img{
+				position: absolute;
+				left: 18px;
+				top: 18px;
+				width: 80px;
+				height: 80px;
+			}
+			.data-list .pd-name{
+				font-size: 16px;
+				line-height: 20px;
+				height: 40px;
+				overflow: hidden;
+			}
+			.data-list .pd-price{
+				margin-top: 8px;
+				color: red;
+			}
+			.data-list .pd-sold{
+				font-size: 12px;
+				margin-top: 8px;
+				color: gray;
+			}
+
+			.footSpan{
+				display: inline-block;
+				width: 17%;
+				padding: 0 0;
+			}
+			.footImg{
+				display: inline-block;
+				width: 11%;
+				padding: 0 3%;
+			}
+			/*隐藏*/
+			.hide{display: none;}
+		</style>
+	</head>
+
+	<body style="">
+		<!--标题-->
+		<div class="header">
+			<div style="width:100%; height:49px; background:inherit; background-color:rgba(255, 0, 0, 1);">
+				<img class="btn-right" style="height: 20px;" src="images/首页/search.png"/>
+				<img class="btn-left" style="height: 25px;" src="images/首页/logo.png"/>
+			</div>
+		
+			<!--菜单-->
+			<div class="nav">
+				<p class="active" i="0" value="recommend">推荐</p>
+				<p i="1" class="" value="news">新闻</p>
+				<p i="2" class="" value="military">军事</p>
+				<p i="3" class="" value="character">人物</p>
+				<p i="4" class="" value="history">史实</p>
+			</div>
+		</div>
+		
+		<!--首页-->
+		<div id="mescroll0" class="mescroll mescroll-bar" style="height: 75%">
+			<div style="margin-top:0px;" id="topDiv0">
+			    <!-- 头条图片 -->
+			    <div style="margin-bottom:-10px;">
+			        <img id="top0" class="imgtop" src=""/>
+			    </div>
+			    <!-- 头条标题 -->
+			    <div style="background-color:rgba(242, 242, 242, 1); magin-top: 0; height:45px;">
+			        <p style="font-weight: 700; text-align:center; padding-top: 15px; font-size: 18px;"><span id="title0"></span></p>
+			    </div>
+			</div>
+
+			<ul id="dataList0" class="data-list">
+			</ul>
+		</div>
+		
+		<div id="mescroll1" class="mescroll hide" style="height: 75%">
+			<div style="margin-top:0px;" id="topDiv1">
+			    <!-- 头条图片 -->
+			    <div style="margin-bottom:-10px;">
+			        <img id="top1" class="imgtop" src=""/>
+			    </div>
+			    <!-- 头条标题 -->
+			    <div style="background-color:rgba(242, 242, 242, 1); magin-top: 0; height:45px;">
+			        <p style="font-weight: 700; text-align:center; padding-top: 15px; font-size: 18px;"><span id="title1"></span></p>
+			    </div>
+			</div>
+
+			<ul id="dataList1" class="data-list">
+			</ul>
+		</div>
+
+		<div id="mescroll2" class="mescroll hide" style="height: 75%">
+			<div style="margin-top:0px;" id="topDiv2">
+			    <!-- 头条图片 -->
+			    <div style="margin-bottom:-10px;">
+			        <img id="top2" class="imgtop" src=""/>
+			    </div>
+			    <!-- 头条标题 -->
+			    <div style="background-color:rgba(242, 242, 242, 1); magin-top: 0; height:45px;">
+			        <p style="font-weight: 700; text-align:center; padding-top: 15px; font-size: 18px;"><span id="title2"></span></p>
+			    </div>
+			</div>
+
+			<ul id="dataList2" class="data-list">
+			</ul>
+		</div>
+		
+		<div id="mescroll3" class="mescroll hide" style="height: 75%">
+			<div style="margin-top:0px;" id="topDiv3">
+			    <!-- 头条图片 -->
+			    <div style="margin-bottom:-10px;">
+			        <img id="top3" class="imgtop" src=""/>
+			    </div>
+			    <!-- 头条标题 -->
+			    <div style="background-color:rgba(242, 242, 242, 1); magin-top: 0; height:45px;">
+			        <p style="font-weight: 700; text-align:center; padding-top: 15px; font-size: 18px; "><span id="title3"></span></p>
+			    </div>
+			</div>
+
+			<ul id="dataList3" class="data-list">
+			</ul>
+		</div>
+
+		<div id="mescroll4" class="mescroll hide" style="height: 75%">
+			<div style="margin-top:0px;" id="topDiv4">
+			    <!-- 头条图片 -->
+			    <div style="margin-bottom:-10px;">
+			        <img id="top4" class="imgtop" src=""/>
+			    </div>
+			    <!-- 头条标题 -->
+			    <div style="background-color:rgba(242, 242, 242, 1); magin-top: 0; height:45px;">
+			        <p style="font-weight: 700; text-align:center; padding-top: 15px; font-size: 18px;"><span id="title4"></span></p>
+			    </div>
+			</div>
+
+			<ul id="dataList4" class="data-list">
+			</ul>
+		</div>
+
+		<div id="foot" style="position: fixed;top:auto; bottom: 0; width: 100%; background: white; height: 80px;" class="footer">
+		    <div style="font-size: 15px; text-align:center;">
+		        <img id="school_image" onclick="go_part('school')" class="footImg" src="images/首页/message0.png"/>
+		        <img id="study_image" class="footImg" src="images/首页/study0.png"/>
+		        <img id="main_image" class="footImg" src="images/首页/main.png"/>
+		        <img id="home_image" class="footImg" src="images/首页/home0.png"/>
+		        <img id="me_image" onclick="go_part('me')" class="footImg" src="images/首页/me0.png"/>
+		    </div>
+		    <div id="foot_tag" style="font-size: 14px; text-align:center;">
+		        <span id="school_tag" class="footSpan" >校园</span>
+		        <span id="study_tag" class="footSpan" >学习</span>
+		        <span id="main_tag" class="footSpan" >首页</span>
+		        <span id="home_tag" class="footSpan" >基地</span>
+		        <span id="me_tag" class="footSpan" >我的</span>
+		    </div>
+		</div>
+	</body>
+	
+	<script type="text/javascript" charset="utf-8">
+		var partName = "recommend";
+		// 头条框数组
+		var tops = new Array(0, 0, 0, 0, 0);
+		// 文章尾id
+		var indexs = new Array(0, 0, 0, 0, 0);
+		// 文章头id
+		var headIndexs = new Array(2147483647, 2147483647, 2147483647, 2147483647, 2147483647);
+
+
+		var curNavIndex=0;
+		var mescrollArr=new Array(4);//4个菜单所对应的5个mescroll对象
+		//初始化首页
+		mescrollArr[0]=initMescroll("mescroll0", "dataList0");
+
+		/*初始化菜单*/
+		$(".nav p").click(function(){
+			var i=Number($(this).attr("i"));
+			if(curNavIndex!=i) {
+				//更改列表条件
+				$(".nav .active").removeClass("active");
+				$(this).addClass("active");
+				//隐藏当前列表和回到顶部按钮
+				$("#mescroll"+curNavIndex).hide();
+				mescrollArr[curNavIndex].hideTopBtn();
+				//显示对应的列表
+				$("#mescroll"+i).show();
+				//取出菜单所对应的mescroll对象,如果未初始化则初始化
+				if(mescrollArr[i]==null){
+					mescrollArr[i]=initMescroll("mescroll"+i, "dataList"+i);
+				}else{
+					//检查是否需要显示回到到顶按钮
+					var curMescroll=mescrollArr[i];
+					var curScrollTop=curMescroll.getScrollTop();
+					if(curScrollTop>=curMescroll.optUp.toTop.offset){
+						curMescroll.showTopBtn();
+					}else{
+						curMescroll.hideTopBtn();
+					}
+				}
+				//更新标记
+				partName = $(this).attr("value");
+				console.log(partName);
+				curNavIndex=i;
+			}
+		})
+
+		/*创建MeScroll对象*/
+		function initMescroll(mescrollId,clearEmptyId){
+			//创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,刷新列表数据;
+			var mescroll = new MeScroll(mescrollId, {
+				//下拉刷新配置项
+				down: {
+					auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: getNew //下拉刷新的回调
+				},
+				//上拉加载的配置项
+				up: {
+					callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					noMoreSize: 0, //如果列表已无数据,可设置列表的总数量要大于半页才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看; 默认5
+					empty: {
+						icon: "../res/img/mescroll-empty.png", //图标,默认null
+						tip: "暂无相关数据~", //提示
+						btntext: "去逛逛 >", //按钮,默认""
+						btnClick: function(){//点击按钮的回调,默认null
+							alert("点击了按钮,具体逻辑自行实现");
+						}
+					},
+					clearEmptyId: clearEmptyId, //相当于同时设置了clearId和empty.warpId; 简化写法;默认null; 注意vue中不能配置此项
+					toTop:{ //配置回到顶部按钮
+						src : "../res/img/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
+						//offset : 1000
+					},
+					lazyLoad: {
+						use: true // 是否开启懒加载,默认false
+					}
+				}
+			});
+			tops = new Array(0, 0, 0, 0, 0);
+			return mescroll;
+		}
+
+		/*联网加载列表数据   */
+		function getListData(){
+			//联网加载数据
+			var dataIndex=curNavIndex; //记录当前联网的nav下标,防止快速切换时,联网回来curNavIndex已经改变的情况;
+			getListDataFromNet(dataIndex, function(pageData){
+				//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+				//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+				console.log("dataIndex="+dataIndex+", curNavIndex="+curNavIndex+", pageData.length="+pageData.length);
+
+				//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+				//mescrollArr[dataIndex].endByPage(pageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+				//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+				//mescrollArr[dataIndex].endBySize(pageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
+
+				//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+				if (pageData.length < 10) {
+					mescrollArr[dataIndex].endSuccess(pageData.length, false);
+				} else {
+					mescrollArr[dataIndex].endSuccess(pageData.length, true);
+				}
+				//mescrollArr[dataIndex].endSuccess(pageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+				//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+				//mescrollArr[dataIndex].endSuccess(pageData.length);
+
+				//提示:pageData.length必传的原因:
+				// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+				// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+				// 3.使配置的noMoreSize生效
+
+				//设置列表数据
+				setListData(pageData,dataIndex);
+			}, function(){
+				//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+				mescrollArr[dataIndex].endErr();
+			});
+		}
+
+		/*设置列表数据
+		 * pageData 当前页的数据
+		 * dataIndex 数据属于哪个nav */
+		function setListData(pageData,dataIndex){
+			var listDom=document.getElementById("dataList"+dataIndex);
+			for (var i = 0; i < pageData.length; i++) {
+				var result=pageData[i];
+
+				var str =
+				'<div onclick="window.android.toArticle(' + '\'' + result.htmlUrl + '\', ' + result.id + ')"'+
+					'<div style="margin-left: 15px; margin-bottom: 15px;">'+
+						'<div class="text">'+
+							'<p><span style="font-size: 15px;">' + result.title + '</span></p>'+
+						'</div>'+
+					'</div>'+
+					'<div style="margin-top: -5px; margin-left: 15px; font-size:14px; color: #6C6C6C">'+
+					'<p><span>' + result.type + '&nbsp; ' + result.date + '</span></p>'+
+				'</div>'
+
+				var liDom=document.createElement("li");
+				liDom.innerHTML=str;
+				listDom.appendChild(liDom);
+				// 更新当前栏目尾下标
+				indexs[dataIndex] = result.id;
+				// 首次加载 更新当前栏目头下标
+				if (headIndexs[dataIndex] == 2147483647) {
+					headIndexs[dataIndex] = result.id;
+				}
+			}
+			console.log("当前头下标：" + headIndexs[dataIndex]);
+			console.log("当前尾下标：" + indexs[dataIndex]);
+		}
+
+		/*联网加载列表数据
+		 在您的实际项目中,请参考官方写法: http://www.mescroll.com/api.html#tagUpCallback
+		 请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
+		 实际项目以您服务器接口返回的数据为准,无需本地处理分页.
+		 * */
+		function getListDataFromNet(curNavIndex,successCallback,errorCallback) {
+			if (tops[curNavIndex] == 0) {
+				$.ajax({
+					url:_url_() + "/hqx_newsview/top",
+					type:"POST",
+					data:{
+					  part:partName,
+					},
+					success:function(result) {
+						console.log(result);
+						if (result.code == 0) {
+							console.log("top ");
+							console.log(result.data);
+							showTop(result.data, curNavIndex);
+							tops[curNavIndex] = 1;
+							console.log("tops[curNavIndex] " + tops[curNavIndex]);
+						}
+					}
+				});
+			}
+			$.ajax({
+				url:_url_() + "/hqx_newsview/articles",
+				type:"POST",
+				data:{
+					part:partName,
+					index:indexs[curNavIndex]
+				},
+				success: function(data){
+					var listData = [];
+					if (data.code == 0) {
+						listData = data.data;
+						// TODO 这里或添加 数据筛选功能 筛选当前栏目的数据
+					}
+					successCallback(listData);
+				},
+				error: errorCallback
+			});
+		}
+
+		function getNew() {
+		// 更新栏目头条
+			$.ajax({
+				url:_url_() + "/hqx_newsview/top",
+				type:"POST",
+				data:{
+				  part:partName,
+				},
+				success:function(result) {
+					console.log(result);
+					if (result.code == 0) {
+						console.log("top ");
+						console.log(result.data);
+						showTop(result.data, curNavIndex);
+						tops[curNavIndex] = 1;
+					}
+				}
+			});
+			// 获取最新文章
+			$.ajax({
+				// TODO 获得最新文章的接口
+				url:_url_() + "/hqx_newsview/articles",
+				type:"POST",
+				data:{
+				  part:partName,
+				  index:headIndexs[curNavIndex],
+				},
+				success:function(result) {
+					console.log("获取最新文章");
+					if (result.code == 0) {
+						mescrollArr[curNavIndex].endSuccess();
+						addListHead(result.data, curNavIndex);
+					} else {
+						mescrollArr[curNavIndex].endErr();
+					}
+				}
+			});
+		}
+
+		function addListHead(pageData, dataIndex) {
+			var listLi=document.getElementById("dataList"+dataIndex).innerHTML;
+
+			var newdata = "";
+			for (var i = 0; i < pageData.length; i++) {
+				var result=pageData[i];
+
+				var str = '<li>' +
+				'<div onclick="window.android.toArticle(' + '\'' + result.htmlUrl + '\', ' + result.id + ')"'+
+					'<div style="margin-left: 15px; margin-bottom: 15px;">'+
+						'<div class="text">'+
+							'<p><span style="font-size: 15px;">' + result.title + '</span></p>'+
+						'</div>'+
+					'</div>'+
+					'<div style="margin-top: -5px; margin-left: 15px; font-size:14px; color: #6C6C6C">'+
+					'<p><span>' + result.type + '&nbsp; ' + result.date + '</span></p>'+
+				'</div></li>'
+
+				newdata += str;
+				// 更新当前栏目头下标
+				if (i == 0) {
+					headIndexs[dataIndex] = result.id;
+				}
+			}
+
+			// 把li形成的list加至栏目头
+			document.getElementById("dataList"+dataIndex).innerHTML = newdata + listLi;
+		}
+
+
+		function showTop(result, curNavIndex) {
+			document.getElementById('top' + curNavIndex).src = result.picUrl;
+			document.getElementById('title' + curNavIndex).innerHTML = result.title;
+
+			document.getElementById('topDiv' + curNavIndex).val = result.htmlUrl;
+			document.getElementById('topDiv' + curNavIndex).aid = result.id;
+			document.getElementById('topDiv' + curNavIndex).onclick = read_top;
+			// top_id = result.id;
+			// top_type = result.type;
+			// top_date = result.date;
+		}
+
+
+
+
+
+		function go_part(partName) {
+	      window.android.goPart(partName);
+	    }
+
+	    function read_top() {
+			console.log("看文章 " + this.val + "----" + this.id);
+			window.android.toArticle(this.val, this.id);
+		}
+
+
+		
+	</script>
+
+</html>
