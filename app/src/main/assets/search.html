@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>搜索</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="files/main/styles.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <script type="text/javascript" src="resources/scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="resources/scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
+    <script type="text/javascript" src="resources/scripts/common.js"></script>
+</head>
+<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				-webkit-touch-callout:none;
+				-webkit-user-select:none;
+				-webkit-tap-highlight-color:transparent;
+			}
+			body{background-color: white}
+			ul{list-style-type: none}
+			a {text-decoration: none;color: #18B4FE;}
+			.imgtop {width: 100%;}
+
+			.header{
+				z-index: 9990;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				line-height: 16px;
+				padding-top: 0px;
+				text-align: center;
+				background-color: white;
+			}
+			.header .btn-left{
+				position: absolute;
+				top: 11px;
+				left: 0;
+				padding:0px 11px;
+			}
+			.header input{
+				position: absolute;
+				top: 8px;
+				left: 20%;
+				width: 60%;
+				padding:6px 0;
+				border: 0px solid #18B4FE;
+				border-radius: 8px;
+				text-align: center;
+				outline:none;
+				-webkit-appearance: none;
+			}
+			.header .btn-right{
+				position: absolute;
+				top: 14px;
+				right: 0;
+				padding:0px 10px;
+			}
+			.header .tip{
+				margin-top: 4px;
+				font-size: 12px;
+				color: gray;
+			}
+			/*菜单*/
+			.header .nav{
+				margin-top: 8px;
+				border-bottom: 1px solid #ddd;
+			}
+			.header .nav p{
+				display: inline-block;
+				width: 17%;
+				padding: 5px 0;
+			}
+			.header .nav .active{
+				border-bottom: 2px solid #FF6990;
+				color: #FF6990;
+			}
+			/*列表*/
+			.mescroll{
+				position: fixed;
+				top: 84px;
+				bottom: 0;
+				height: auto;
+			}
+			/*展示上拉加载的数据列表*/
+			.data-list li{
+				position: relative;
+				padding: 10px 8px 10px 10px;
+				border-bottom: 1px solid #eee;
+			}
+			.data-list .pd-img{
+				position: absolute;
+				left: 18px;
+				top: 18px;
+				width: 80px;
+				height: 80px;
+			}
+			.data-list .pd-name{
+				font-size: 16px;
+				line-height: 20px;
+				height: 40px;
+				overflow: hidden;
+			}
+			.data-list .pd-price{
+				margin-top: 8px;
+				color: red;
+			}
+			.data-list .pd-sold{
+				font-size: 12px;
+				margin-top: 8px;
+				color: gray;
+			}
+
+			.footSpan{
+				display: inline-block;
+				width: 17%;
+				padding: 0 0;
+			}
+			.footImg{
+				display: inline-block;
+				width: 11%;
+				padding: 0 3%;
+			}
+			/*隐藏*/
+			.hide{display: none;}
+		</style>
+<body>
+
+<!-- Unnamed (矩形) -->
+<div class="header">
+    <div style="width:100%; height:49px; background:inherit; background-color:rgba(255, 0, 0, 1);">
+        <p class="btn-right" onclick="searchArticles()" style="height: 20px; color:white; font-size:20px;">搜索</p>
+        <input id="keyword" placeholder="请输入搜索关键词">
+        <p class="btn-left" onclick="window.android.toReturn()" style="height: 20px; color:white; font-size:30px;"><</p>
+        <!--        <img class="btn-left" style="height: 25px;" src="images/首页/return.png"/>-->
+    </div>
+</div>
+
+    <div id="articles" style="margin-top: 70px;">
+        <!--一条资讯-->
+<!--        <div onclick="window.android.toArticle('习近平同蒙古国总统巴特图勒嘎举行会谈', '人民网-国际频道', '2019-04-26','http://114.116.118.232:81/hqx_static/news/html/1.html', 'news', 1)" style="margin-top: -10px">-->
+<!--            <div style="margin: 15px;">-->
+<!--                <div class="text">-->
+<!--                    <p><span style="font-size: 15px;">习近平同蒙古国总统巴特图勒嘎举行会谈</span></p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div style="margin-top: -5px; margin-left: 15px; font-size:14px; color: #6C6C6C">-->
+<!--                <p><span>人民网-国际频道&nbsp; 2019-04-26</span></p>-->
+<!--            </div>-->
+<!--            <div style="margin-top:5px;">-->
+<!--                <img style="width: 100%" src="images/首页/u58.png">-->
+<!--            </div>-->
+<!--        </div>-->
+
+    </div>
+</body>
+<script>
+    function searchArticles() {
+        document.getElementById('articles').innerHTML = "";
+        layer.msg('&nbsp;&nbsp;正在搜索文章', {
+          icon: 16,
+          shade: 0.3,
+          time: 100000
+        });
+
+        $.ajax({
+            url: _url_()+"/article/search",
+            type:"POST",
+            data:{
+              str:document.getElementById("keyword").value
+            },
+            success:function(result) {
+              layer.closeAll();
+              if (result.code == 0) {
+                result = result.data;
+                showList(result);
+              }
+            },
+            error:function(result) {
+              layer.closeAll();
+              layer.msg("请检查网络");
+            }
+        });
+    }
+    // 显示文章列表 参数为文章list
+    function showList(result) {
+        for (var i = 0; i < result.length; i++) {
+            var articles = document.getElementById('articles').innerHTML;
+            document.getElementById('articles').innerHTML = articles +
+                '<div onclick="window.android.toArticle(' + '\'' + result[i].htmlUrl + '\', ' + result[i].id + ')" style="margin-top: -10px">'+
+                    '<div style="margin: 15px;">'+
+                        '<div class="text">'+
+                            '<p><span style="font-size: 15px;">' + result[i].title + '</span></p>'+
+                        '</div>'+
+                    '</div>'+
+                '<div style="margin-top: -5px; margin-left: 15px; font-size:14px; color: #6C6C6C">'+
+                    '<p><span>' + result[i].type + '&nbsp; ' + result[i].date + '</span></p>'+
+                '</div>'+
+                '<div style="margin-top:5px;"><img style="width: 100%" src="images/首页/u58.png"/></div></div>';
+         }
+    }
+</script>
+</html>
