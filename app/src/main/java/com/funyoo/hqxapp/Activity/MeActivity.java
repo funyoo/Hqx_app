@@ -39,6 +39,8 @@ public class MeActivity extends Activity {
             webSettings.setAllowUniversalAccessFromFileURLs(true);
             webSettings.setAllowFileAccessFromFileURLs(true);
         }
+        // 去除滑动动画效果
+        overridePendingTransition(0, 0);
 
 //        webView.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
@@ -68,14 +70,11 @@ public class MeActivity extends Activity {
     public final class JSInterface {
         @JavascriptInterface
         public void goPart(String partName) {
-            if (partName.equals("main")) {
-                startActivity(new Intent(MeActivity.this, MainActivity.class));
-            } else if (partName.equals("school")) {
+            if (partName.equals("school")) {
                 startActivity(new Intent(MeActivity.this, SchoolListActivity.class));
             }
-            // 去除滑动动画效果
-            overridePendingTransition(0, 0);
             finish();
+            overridePendingTransition(0, 0);
         }
 
         @JavascriptInterface

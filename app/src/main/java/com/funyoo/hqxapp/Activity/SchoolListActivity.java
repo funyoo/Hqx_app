@@ -42,6 +42,8 @@ public class SchoolListActivity extends Activity {
             webSettings.setAllowFileAccessFromFileURLs(true);
         }
 
+        overridePendingTransition(0, 0);
+
 //        webView.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -78,11 +80,9 @@ public class SchoolListActivity extends Activity {
         public void goPart(String partName) {
             if (partName.equals("me")) {
                 startActivity(new Intent(SchoolListActivity.this, MeActivity.class));
-            } else if (partName.equals("main")) {
-                startActivity(new Intent(SchoolListActivity.this, MainActivity.class));
             }
-            overridePendingTransition(0, 0);
             finish();
+            overridePendingTransition(0, 0);
         }
 
         @JavascriptInterface
