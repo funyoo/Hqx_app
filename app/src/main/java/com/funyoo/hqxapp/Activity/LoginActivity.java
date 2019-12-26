@@ -55,7 +55,7 @@ public class LoginActivity extends Activity {
         webView.loadUrl( "javascript:window.location.reload( true )" );
         // 从assets目录下面的加载html
         webView.loadUrl("file:///android_asset/login.html");
-        webView.addJavascriptInterface(new LoginActivity.JSInterface(), "android");//开放接口给js调用
+        webView.addJavascriptInterface(new JSInterface(), "android");//开放接口给js调用
 
 
         // 检查用户是否登录 是：直接首页  否：登录页

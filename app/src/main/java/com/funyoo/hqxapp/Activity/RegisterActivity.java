@@ -51,7 +51,7 @@ public class RegisterActivity extends Activity {
         webView.loadUrl( "javascript:window.location.reload( true )" );
         // 从assets目录下面的加载html
         webView.loadUrl("file:///android_asset/register.html");
-        webView.addJavascriptInterface(new RegisterActivity.JSInterface(), "android");//开放接口给js调用
+        webView.addJavascriptInterface(new JSInterface(), "android");//开放接口给js调用
     }
 
     public final class JSInterface {

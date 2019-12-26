@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
         //webView.loadUrl( "javascript:window.location.reload( true )" );
         // 从assets目录下面的加载html
         webView.loadUrl("file:///android_asset/main.html");
-        webView.addJavascriptInterface(new MainActivity.JSInterface(), "android");//开放接口给js调用
+        webView.addJavascriptInterface(new JSInterface(), "android");//开放接口给js调用
 
         databaseHelper = new MyDatabaseHelper(MainActivity.this, "articls", null, 1);
 

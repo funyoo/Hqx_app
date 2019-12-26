@@ -72,7 +72,7 @@ public class SchoolDetailActivity extends Activity {
         //webView.loadUrl( "javascript:window.location.reload( true )" );
         // 从assets目录下面的加载html
         webView.loadUrl("file:///android_asset/schoolDetail.html");
-        webView.addJavascriptInterface(new SchoolDetailActivity.JSInterface(), "android");//开放接口给js调用
+        webView.addJavascriptInterface(new JSInterface(), "android");//开放接口给js调用
 
         databaseHelper = new MyDatabaseHelper(SchoolDetailActivity.this, "articls", null, 1);
     }
