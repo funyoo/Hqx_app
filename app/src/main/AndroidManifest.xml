@@ -39,6 +39,7 @@
         <activity android:name=".SetActivity"></activity>
         <activity android:name=".AboutActivity"></activity>
         <activity android:name=".CollectionActivity"></activity>
+        <activity android:name=".SearchArticleActivity"></activity>
         <!--<activity android:name=".Activity.LoginOrRegisterActivity" />-->
         <!--<activity android:name=".Activity.MainActivity" />-->
         <!--<activity android:name=".Activity.LoginActivity" />-->
