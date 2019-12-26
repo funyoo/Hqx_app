@@ -2,36 +2,63 @@
 <html>
 <head>
     <title>活动</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link href="files/main/styles.css" type="text/css" rel="stylesheet"/>
-    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="resources/css/mescroll.min.css">
     <script type="text/javascript" src="resources/scripts/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="resources/scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="layer/layer.js"></script>
+    <script type="text/javascript" src="resources/scripts/mescroll.min.js"></script>
     <script type="text/javascript" src="resources/scripts/common.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
 </head>
-<style>*,body,html,div,p,img{border:0;margin:0;padding:0;} </style>
+<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				-webkit-touch-callout:none;
+				-webkit-user-select:none;
+				-webkit-tap-highlight-color:transparent;
+			}
+			body{background-color: white}
+
+			.header .btn-left{
+				position: absolute;
+				top: 11px;
+				left: 0;
+				padding:0px 11px;
+			}
+			.header .btn-right{
+				position: absolute;
+				top: 14px;
+				right: 0;
+				padding:0px 10px;
+			}
+
+			.footSpan{
+				display: inline-block;
+				width: 17%;
+				padding: 0 0;
+			}
+			.footImg{
+				display: inline-block;
+				width: 11%;
+				padding: 0 3%;
+			}
+			/*隐藏*/
+			.hide{display: none;}
+		</style>
 <body>
 
-<!-- Unnamed (矩形) -->
-<div style="position: fixed;top:0; bottom: auto; width: 100%; background: white;" class="footer">
-    <div>
-        <div id="u36_div" class=""></div>
-    </div>
-    <div class="ax_default _图片">
-        <img id="u46_img" class="img " src="images/首页/search.png"/>
-    </div>
-
-    <!-- Unnamed (图片) -->
-    <div>
-        <img id="u48_img" class="img " src="images/首页/logo.png"/>
+<div class="header">
+    <div style="width:100%; height:49px; background:inherit; background-color:rgba(255, 0, 0, 1);">
+        <img class="btn-right" style="height: 20px;" src="images/首页/search.png"/>
+        <img class="btn-left" style="height: 25px;" src="images/首页/logo.png"/>
     </div>
 </div>
 
 
-<div id="activities" style="padding-top: 55px;">
+<div id="activities">
 
 <!--    <div style="height:100px; margin-top:5px;" onclick="goSchoolActivity(1)">-->
 <!--        <div style="float:left; width: 35%; height: 80px; margin-left:1%;">-->
@@ -49,31 +76,30 @@
 </div>
 
 
-<div id="space" style="height: 70px;"></div>
+<!--<div id="space" style="height: 70px;"></div>-->
 
-<div id="foot" style="position: fixed;top:auto; bottom: 0; width: 100%; background: white; height: 70px;" class="footer">
+<div id="foot" style="position: fixed;top:auto; bottom: 0; width: 100%; background: white; height: 80px;" class="footer">
     <div style="font-size: 15px; text-align:center;">
-        <img id="school_image" style="margin-left:6%; margin-right: 6%; margin-top: 10px; margin-bottom: 5px; width: 28px;" src="images/首页/message.png"/>
-        <img id="study_image" style="margin-left:6%; margin-right: 6%; margin-top: 10px; margin-bottom: 5px; width: 28px;" src="images/首页/study0.png"/>
-        <img id="main_image" onclick="go_part('main')" style="margin-left:6%; margin-right: 6%; margin-top: 10px; margin-bottom: 5px; width: 28px;" src="images/首页/main0.png"/>
-        <img id="home_image" style="margin-left:6%; margin-right: 6%; margin-top: 10px; margin-bottom: 5px; width: 28px;" src="images/首页/home0.png"/>
-        <img id="me_image" onclick="go_part('me')" style="margin-left:6%; margin-right: 6%; margin-top: 10px; margin-bottom: 5px; width: 28px;" src="images/首页/me0.png"/>
+        <img id="school_image" onclick="go_part('school')" class="footImg" src="images/首页/message.png"/>
+        <img id="study_image" class="footImg" src="images/首页/study0.png"/>
+        <img id="main_image" onclick="window.android.goPart('main')" class="footImg" src="images/首页/main0.png"/>
+        <img id="home_image" class="footImg" src="images/首页/home0.png"/>
+        <img id="me_image" onclick="go_part('me')" class="footImg" src="images/首页/me0.png"/>
     </div>
     <div id="foot_tag" style="font-size: 14px; text-align:center;">
-        <span id="school_tag" style="font-family:'Arial Negreta', 'Arial Normal', 'Arial';font-weight:700; margin:6%; width: 18px;">校园</span>
-        <span id="study_tag" style="font-family:'Arial Negreta', 'Arial Normal', 'Arial';margin:6%; width: 18px;">学习</span>
-        <span id="main_tag" style="font-family:'Arial Negreta', 'Arial Normal', 'Arial';margin:6%; width: 18px;">首页</span>
-        <span id="home_tag" style="font-family:'Arial Negreta', 'Arial Normal', 'Arial';margin:6%; width: 18px;">基地</span>
-        <span id="me_tag" style="font-family:'Arial Negreta', 'Arial Normal', 'Arial';margin:6%; width: 18px;">我的</span>
+        <span id="school_tag" class="footSpan" >校园</span>
+        <span id="study_tag" class="footSpan" >学习</span>
+        <span id="main_tag" class="footSpan" >首页</span>
+        <span id="home_tag" class="footSpan" >基地</span>
+        <span id="me_tag" class="footSpan" >我的</span>
     </div>
 </div>
 </body>
 <script>
-    adjustView();
     getActivities();
 
     function getActivities() {
-        layer.msg('&nbsp;&nbsp;小红旗正在查找活动', {
+        layer.msg('小红旗正在查找活动' , {
           icon: 16,
           shade: 0.3,
           time: 100000
@@ -119,43 +145,9 @@
     }
 
 
-
-
-
     function go_part(partName) {
       window.android.goPart(partName);
     }
 
-
-    function adjustView(){
-        var width = document.body.clientWidth;
-
-        var fontSize = width / 24;
-        var imageSize = width / 12;
-
-        document.getElementById('school_image').style.margin = fontSize + 'px';
-        document.getElementById('home_image').style.margin = fontSize + 'px';
-        document.getElementById('study_image').style.margin = fontSize + 'px';
-        document.getElementById('main_image').style.margin = fontSize + 'px';
-        document.getElementById('me_image').style.margin = fontSize + 'px';
-
-        document.getElementById('school_image').style.width = imageSize + 'px';
-        document.getElementById('home_image').style.width = imageSize + 'px';
-        document.getElementById('study_image').style.width = imageSize + 'px';
-        document.getElementById('main_image').style.width = imageSize + 'px';
-        document.getElementById('me_image').style.width = imageSize + 'px';
-
-        document.getElementById('foot_tag').style.fontSize = fontSize + 'px';
-        document.getElementById('school_tag').style.margin = fontSize + 'px';
-        document.getElementById('study_tag').style.margin = fontSize + 'px';
-        document.getElementById('main_tag').style.margin = fontSize + 'px';
-        document.getElementById('home_tag').style.margin = fontSize + 'px';
-        document.getElementById('me_tag').style.margin = fontSize + 'px';
-
-        document.getElementById('foot_tag').style.marginTop = -fontSize / 2 + 'px';
-
-        document.getElementById('foot').style.height = (fontSize * 3 + imageSize) + 'px';
-        document.getElementById('space').style.height = (fontSize * 3 + imageSize) + 'px';
-    };
   </script>
 </html>

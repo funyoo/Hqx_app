@@ -119,7 +119,7 @@
 		<!--标题-->
 		<div class="header">
 			<div style="width:100%; height:49px; background:inherit; background-color:rgba(255, 0, 0, 1);">
-				<img class="btn-right" style="height: 20px;" src="images/首页/search.png"/>
+				<img class="btn-right" onclick="window.android.search()" style="height: 20px;" src="images/首页/search.png"/>
 				<img class="btn-left" style="height: 25px;" src="images/首页/logo.png"/>
 			</div>
 		
@@ -452,7 +452,7 @@
 			// 获取最新文章
 			$.ajax({
 				// TODO 获得最新文章的接口
-				url:_url_() + "/hqx_newsview/articles",
+				url:_url_() + "/hqx_newsview/newArticles",
 				type:"POST",
 				data:{
 				  part:partName,
