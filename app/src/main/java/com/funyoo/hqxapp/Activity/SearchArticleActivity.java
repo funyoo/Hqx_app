@@ -52,7 +52,6 @@ public class SearchArticleActivity extends Activity {
         webView.loadUrl("file:///android_asset/search.html");
         webView.addJavascriptInterface(new JSInterface(), "android");//开放接口给js调用
 
-        //databaseHelper = new MyDatabaseHelper(CollectionActivity.this, "articls", null, 1);
     }
 
 
