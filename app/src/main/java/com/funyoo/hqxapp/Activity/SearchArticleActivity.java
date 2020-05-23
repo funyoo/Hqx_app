@@ -51,7 +51,6 @@ public class SearchArticleActivity extends Activity {
         // 从assets目录下面的加载html
         webView.loadUrl("file:///android_asset/search.html");
         webView.addJavascriptInterface(new JSInterface(), "android");//开放接口给js调用
-
     }
 
 
